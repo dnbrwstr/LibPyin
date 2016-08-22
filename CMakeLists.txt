@@ -12,4 +12,4 @@ aux_source_directory(./source/pyin SRC_LIST)
 
 set(CMAKE_BUILD_TYPE Release)
 
-add_library(LibPyin SHARED ${SRC_LIST} ./source/normal_dist_pdf.cpp ./source/libpyincpp.cpp ./source/libpyinc.cpp)
+add_library(LibPyin SHARED ${SRC_LIST} ./source/normal_dist_pdf.cpp ./source/libpyincpp.cpp)
