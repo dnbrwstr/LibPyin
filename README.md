@@ -1,7 +1,27 @@
 LibPyin pitch detection library
 ================================
 
-LibPyin is a plug-in library for pitch (fundamental frequency) detection (see here https://en.wikipedia.org/wiki/Pitch_detection_algorithm). The library provides simple C and C++ interface for easy incorporability to projects in other languages.
+Forked from: https://github.com/xstreck1/LibPyin
+
+Here I will try to get the same result as VAMP plugin
+
+**are they different?**
+
+In my experiments yes. Check `test_vamp_vs_libpyin` folder:
+
+```
+   test_vamp_vs_libpyin$ g++ main.cpp -L"." -lLibPyin -lsndfile -std=c++11 -I/usr/include
+   test_vamp_vs_libpyin$ rm f0.lst; ./a.out test.wav out.wav >> f0.lst
+   test_vamp_vs_libpyin$ sonic-annotator -t pyin.n3 test.wav -w csv --csv-one-file --force f0_gt.csv
+   test_vamp_vs_libpyin$ python plot_fps.py
+```
+
+![alt text](https://github.com/? "Difference")
+
+
+
+
+LibPyin is a plug-in library for pitch (fundamental frequency) detection (see here https://en.wikipedia.org/wiki/Pitch_detection_algorithm). The library providesC++ interface for easy incorporability to projects in other languages.
 
 The library depends on the Pyin algorithm by M. Mauch and S. Dixon. See https://code.soundsoftware.ac.uk/projects/pyin for details.
 
@@ -13,24 +33,11 @@ If do not want to use either for some reason, and are making a project from the 
 
 Use
 ---
-When using from C++, include `libpyincpp.h`. When using from C, include `libpyinc.h` and link against `LibPyin`.
+From C++. Include `libpyincpp.h` and link against `LibPyin`.
 
 ### Can I use LibPyin Source in My Code?
 Absolutelly, just copy-paste the `source` folder to your project and add it to the include path.
 
-Examples
---------
-There is C, C++, and C# example present. Each example generates a short sine-wave of 440 hz and extracts the frequency from the wave.
-The usage is platform and language dependent. 
-
-For each example first compile the library.
-
-### C example on Unix
-    
-    gcc main.c -L"." -lLibPyin -lm
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:. // Add the current location to the path so the library is loaded
-    ./a.out
-    
  
 ### C++ example on Unix
     
@@ -38,19 +45,6 @@ For each example first compile the library.
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:. // Add the current location to the path so the library is loaded
     ./a.out
     
-### Unity example
-
-1. Add LibPyin.dll and LoadLibrary.cs to your Assets.  
-2. Call `LoadLibrary.use();` from another script attached to a gameobject.
-
-
-### C# example on Windows
-
-1. Before building LibPyin, set on the /clr support on the VS Settings/General. (You may need to switch /EHs to /EHa at Code Generation).
-2. Build as Debug and Release
-3. Run Visual Studio Developer prompt.
-3. `csc main.cs LoadLibrary.cs /unsafe /reference:Debug\LibPyin.dll /platform:x86`
-4. `main.exe`
 
 Cpp interface
 -------------
@@ -81,37 +75,6 @@ _Get all the mined pitches_
 _Resets to the after-construction state_
 
     void PyinCpp::clear();
-	
-
-C interface
------------
-_Initializes a PYIN object, must be called before using pyinc  
-[in]sample_rate  frequency of the track, e.g. 44100 samples per second  
-[in]block_size   length of a block used for obtaining a pitch, the higher the slower, 2048 is recommended  
-[in]step_size    length of a step between two mined pitches, the smaller the slower, 512 is recommended_  
-
-    void pyinc_init(const int sample_rate, const int block_size, const int step_size);
-
-_The cut off is a number between [0-1] that says whether the pitch is still to be considered as correct based on the estimate probability (the pitch will be ignored if the probability is lower than the number)_
-    
-    void SHARED_EXPORT pyinc_set_cut_off(const float cut_off);
-    float SHARED_EXPORT pyinc_get_cut_off();
-
-_Reserves the internal vectors for the given number of expected samples_
-
-    void pyinc_reserve(int sample_count);
-
-_Feed new data and obtain the pitches mined using the new data !THE RANGE IS VALID ONLY UNTIL THE NEXT CALL OF pyinc_feed OR pyinc_clear_
-
-    struct pyinc_pitch_range pyinc_feed(const float * new_samples, int sample_count);
-
-_Get all the mined pitches_
-
-    struct pyinc_pitch_range pyinc_get_pitches();
-
-_Resets to the after-construction state_
-
-    void  pyinc_clear();
 
 
 Licence
