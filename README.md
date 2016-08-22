@@ -21,7 +21,7 @@ In my experiments yes. Check `test_vamp_vs_libpyin` folder:
 Note: blue line is result by LibPyin and black line result by sonic-annotator
 
 
-LibPyin is a plug-in library for pitch (fundamental frequency) detection (see here https://en.wikipedia.org/wiki/Pitch_detection_algorithm). The library providesC++ interface for easy incorporability to projects in other languages.
+LibPyin is a plug-in library for pitch (fundamental frequency) detection (see here https://en.wikipedia.org/wiki/Pitch_detection_algorithm). The library provides C++ interface for easy incorporability to projects in other languages.
 
 The library depends on the Pyin algorithm by M. Mauch and S. Dixon. See https://code.soundsoftware.ac.uk/projects/pyin for details.
 
