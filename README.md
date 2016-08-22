@@ -16,7 +16,7 @@ In my experiments yes. Check `test_vamp_vs_libpyin` folder:
    test_vamp_vs_libpyin$ python plot_fps.py
 ```
 
-![alt text](https://github.com/? "Difference")
+![alt text](https://github.com/EliosMolina/LibPyin/raw/master/test_vamp_vs_libpyin/diff.png "Difference")
 
 
 
