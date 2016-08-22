@@ -12,7 +12,7 @@ if __name__ == "__main__":
     plt.gca().set_aspect('auto')
     plt.plot(np.maximum(0, f0_gt[:, 2]) * 1024 / 8000, c='k', lw=2)
     plt.plot(np.maximum(0, f0[:]) * 1024 / 8000, lw=1)
-    #plt.xlim(0, 500)
-    #plt.ylim(0, 400)
+    plt.xlim(1500, 2400)
+    plt.ylim(0, 140)
     plt.show()
 
