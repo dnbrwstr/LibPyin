@@ -5,6 +5,7 @@ Forked from: https://github.com/xstreck1/LibPyin
 
 In this repository I've included `getSmoothedPitches()`. This pYIN output is much more useful than frame-wise F0 estimation. I've also removed C and C# implementations, since I was not interested in them.
 
+## Frame-wise F0 estimation (blue line)
 Check `test_vamp_vs_libpyin` folder:
 
 ```
@@ -17,6 +18,8 @@ Check `test_vamp_vs_libpyin` folder:
 ![alt text](https://github.com/EliosMolina/LibPyin/raw/master/test_vamp_vs_libpyin/diff.png "Difference")
 
 Note: blue line is result by frame-wise estimation and black line is smoothed pitch contour obtained with sonic annotator.
+
+## Smoothed F0 estimation (blue line)
 
 Now, with `getSmoothedPitches()`, we obtain:
 ```
