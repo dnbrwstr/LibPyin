@@ -44,7 +44,7 @@ PYIN::PYIN(float inputSampleRate) :
     m_oSmoothedPitchTrack(0),
     m_oNotes(0),
     m_threshDistr(2.0f),
-    m_outputUnvoiced(0.0f),
+    m_outputUnvoiced(2.0f),
     m_pitchProb(0),
     m_timestamp(0)
 {

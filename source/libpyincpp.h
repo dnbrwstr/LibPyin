@@ -63,6 +63,8 @@ public:
     std::vector<float> feed(const std::vector<float> & new_samples);
     // Get all the mined pitches
     const std::vector<float> & getPitches() const;
+    // Get smoothed pitch contour
+    std::vector<float> getSmoothedPitches();
     // Resets to the after-construction state
     void clear();
 };

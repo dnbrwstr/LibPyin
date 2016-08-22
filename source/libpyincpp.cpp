@@ -86,3 +86,12 @@ std::vector<float> PyinCpp::feed(const std::vector<float> & new_samples) {
 const std::vector<float> &PyinCpp::getPitches() const {
     return _pitches;
 }
+
+std::vector<float> PyinCpp::getSmoothedPitches() {
+    PYIN::FeatureSet features =_pyin->getRemainingFeatures();
+    std::vector<float> smoothed_pitches(features.at(0).size(), -1);
+    for (size_t i=0; i<features.at(0).size(); i++) {
+        smoothed_pitches[i] = features.at(0).at(i).values[0];
+    }
+    return smoothed_pitches;
+}
