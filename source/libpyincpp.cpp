@@ -65,11 +65,11 @@ std::vector<float> PyinCpp::feed(const std::vector<float> & new_samples) {
         _conversion_head += _STEP_SIZE;
 
         // Get the maximal probability pitch
-        if (!features.empty() && !features.at(0).empty() && !features.at(0).at(0).values.empty()) {
-            auto max_prob_it = std::max_element(begin(features.at(0).at(1).values), end(features.at(0).at(1).values));
-            int max_prob_i = std::distance(begin(features.at(0).at(1).values), max_prob_it);
+        if (!features.empty() && !features.at(0).empty() && !features.at(_pyin->m_oF0Probs).at(0).values.empty()) {
+			auto max_prob_it = std::max_element(begin(features.at(_pyin->m_oF0Probs).at(0).values), end(features.at(_pyin->m_oF0Probs).at(0).values));
+            int max_prob_i = std::distance(begin(features.at(_pyin->m_oF0Probs).at(0).values), max_prob_it);
             if (max_prob_i >= _cut_off) {
-                _pitches.emplace_back(features.at(0).at(0).values[max_prob_i]);
+                _pitches.emplace_back(features.at(_pyin->m_oF0Candidates).at(0).values[max_prob_i]);
             }
             else {
                 _pitches.emplace_back(-1);
@@ -88,10 +88,19 @@ const std::vector<float> &PyinCpp::getPitches() const {
 }
 
 std::vector<float> PyinCpp::getSmoothedPitches() {
-    PYIN::FeatureSet features =_pyin->getRemainingFeatures();
-    std::vector<float> smoothed_pitches(features.at(0).size(), -1);
-    for (size_t i=0; i<features.at(0).size(); i++) {
-        smoothed_pitches[i] = features.at(0).at(i).values[0];
-    }
-    return smoothed_pitches;
+	PYIN::FeatureSet features = _pyin->getRemainingFeatures();
+	if (!features.empty() && !features.at(_pyin->m_oNotes).empty() && !features.at(_pyin->m_oNotes).at(0).values.empty()) {
+		std::vector<float> smoothed_pitches(0);
+		for (size_t i = 0; i < features.at(_pyin->m_oNotes).size(); i++) {
+			smoothed_pitches.push_back(features.at(_pyin->m_oNotes).at(i).values[0]);
+			smoothed_pitches.push_back(features.at(_pyin->m_oNotes).at(i).timestamp.sec + features.at(_pyin->m_oNotes).at(i).timestamp.nsec / 1000);
+			smoothed_pitches.push_back(features.at(_pyin->m_oNotes).at(i).duration.sec + features.at(_pyin->m_oNotes).at(i).duration.nsec / 1000);
+		}
+		return vector<float>(std::begin(smoothed_pitches), std::end(smoothed_pitches));
+	}
+	else {
+		std::vector<float> smoothed_pitches(0, -1);
+		return smoothed_pitches;
+	}
 }
+

@@ -43,12 +43,22 @@ pyinc_pitch_range pyinc_feed(const float * new_samples, int sample_count){
 
 pyinc_pitch_range pyinc_get_pitches(){
     if (_pyin_cpp) {
-        const std::vector<float> & _last_pitches = _pyin_cpp->getPitches();
+        _last_pitches = _pyin_cpp->getPitches();
         return pyinc_pitch_range{_last_pitches.data(), _last_pitches.data() + _last_pitches.size() };
     }
     else {
         return pyinc_pitch_range{0,0};
     }
+}
+
+pyinc_pitch_range pyinc_get_smoothed_pitches() {
+	if (_pyin_cpp) {
+		_last_pitches = _pyin_cpp->getSmoothedPitches();
+		return pyinc_pitch_range{ _last_pitches.data(), _last_pitches.data() + _last_pitches.size() };
+	}
+	else {
+		return pyinc_pitch_range{ 0,0 };
+	}
 }
 
 void pyinc_clear(){

@@ -24,6 +24,13 @@ public:
     PYIN(float inputSampleRate);
     virtual ~PYIN();
 
+	mutable int m_oF0Candidates;
+	mutable int m_oF0Probs;
+	mutable int m_oVoicedProb;
+	mutable int m_oCandidateSalience;
+	mutable int m_oSmoothedPitchTrack;
+	mutable int m_oNotes;
+
     std::string getIdentifier() const;
     std::string getName() const;
     std::string getDescription() const;
@@ -62,13 +69,6 @@ protected:
     float m_fmin;
     float m_fmax;
     Yin m_yin;
-    
-    mutable int m_oF0Candidates;
-    mutable int m_oF0Probs;
-    mutable int m_oVoicedProb;
-    mutable int m_oCandidateSalience;
-    mutable int m_oSmoothedPitchTrack;
-    mutable int m_oNotes;
 
     float m_threshDistr;
     float m_outputUnvoiced;

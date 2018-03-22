@@ -34,6 +34,7 @@ pyinc_pitch_range SHARED_EXPORT pyinc_feed(const float * new_samples, int sample
 struct
 #endif
 pyinc_pitch_range SHARED_EXPORT pyinc_get_pitches();
+pyinc_pitch_range SHARED_EXPORT pyinc_get_smoothed_pitches();
 // Resets to the after-construction state
 void SHARED_EXPORT pyinc_clear();
 
